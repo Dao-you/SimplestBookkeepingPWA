@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, send_from_directory, send_fil
 from datetime import datetime
 import json
 import os
+from CSVconverter import CSVconverter
 
 app = Flask(__name__)
 
@@ -59,6 +60,11 @@ def get_log():
     with open(LOG_FILE, 'r') as f:
         data = json.load(f)
     return jsonify(data)
+
+@app.route('/get_CSV', methods=['GET'])
+def get_CSV():
+    CSV = CSVconverter()
+    return send_file(CSV)
 
 @app.route('/manifest.json')
 def serve_manifest():

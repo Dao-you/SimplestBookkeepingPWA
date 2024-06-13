@@ -32,7 +32,7 @@ h1 {
   
 @media (orientation: landscape) {
     .info_title {
-        height: 150px; /* 直向時的高度 */
+        height: 230px; /* 直向時的高度 */
     }
 }
 
