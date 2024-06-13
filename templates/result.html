@@ -17,35 +17,90 @@
 	<link rel="manifest" href="/manifest.json">
 
   <script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
-
-  <style>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
-  </style>
 </head>
 <body>
-
   <div class="view info_title">
     <h1>{{ info }}</h1>
-    <h1>Sum: {{ data['sum'] }}</h1>
-</div>
+    <h1 id="sum">Sum: 0</h1>
+  </div>
 
-  <table align="center">
-    <tr>
-      <th>Amount</th>
-      <th>Description</th>
-      <th>category</th>
-      <th>Datetime</th>
-    </tr>
-    {% for entry in data['log'] %}
+  <table align="center" id="logTable">
+    <thead>
       <tr>
-        <td>{{ entry['amount'] }}</td>
-        <td>{{ entry['description'] }}</td>
-        <td>{{ entry['category'] }}</td>
-        <td>{{ entry['datetime'] }}</td>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Datetime</th>
       </tr>
-    {% endfor %}
+    </thead>
+    <tbody>
+      <!-- Data will be populated here by JavaScript -->
+    </tbody>
   </table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      fetch('./get_log')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('sum').textContent = "Sum: " + data.sum;
+          const logTableBody = document.getElementById('logTable').getElementsByTagName('tbody')[0];
+          data.log.forEach(entry => {
+            let row = logTableBody.insertRow();
+            let amountCell = row.insertCell(0);
+            let descCell = row.insertCell(1);
+            let categoryCell = row.insertCell(2);
+            let datetimeCell = row.insertCell(3);
+            amountCell.textContent = entry.amount;
+            descCell.textContent = entry.description;
+            categoryCell.textContent = entry.category;
+            datetimeCell.textContent = formatDatetime(entry.datetime);
+          });
+        })
+        .catch(error => console.error('Error fetching log data:', error));
+    });
+
+    function formatDatetime(datetime) {
+      const now = moment();
+      const entryTime = moment(datetime);
+      const diffMinutes = now.diff(entryTime, 'minutes');
+      const diffHours = now.diff(entryTime, 'hours');
+      const diffDays = now.diff(entryTime, 'days');
+
+      if (diffMinutes < 5) {
+        return 'Just now';
+      } else if (diffMinutes < 60) {
+        return `${diffMinutes} minutes ago`;
+      } else if (diffHours < 24) {
+        return `${diffHours} hours ago`;
+      } else if (diffDays < 7) {
+        const dayOfWeek = entryTime.format('dddd');
+        const period = getTimePeriod(entryTime.hour());
+        return `${dayOfWeek} ${period}`;
+      } else {
+        const date = entryTime.format('MM/DD');
+        const period = getTimePeriod(entryTime.hour());
+        return `${date} ${period}`;
+      }
+    }
+
+    function getTimePeriod(hour) {
+      if (hour >= 0 && hour < 5) {
+        return 'early morning';
+      } else if (hour >= 5 && hour < 11) {
+        return 'morning';
+      } else if (hour >= 11 && hour < 14) {
+        return 'noon';
+      } else if (hour >= 14 && hour < 17) {
+        return 'afternoon';
+      } else {
+        return 'evening';
+      }
+    }
+  </script>
+  
 </body>
 </html>

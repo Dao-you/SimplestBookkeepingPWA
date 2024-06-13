@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory, send_file
+from flask import Flask, request, render_template, jsonify
 from datetime import datetime
 import json
 import os
@@ -24,7 +24,7 @@ def home():
         with open(LOG_FILE, 'r') as f:
             data = json.load(f)
         if user_input == '':
-            return render_template('result.html', data=data, info="Data Preview")
+            return render_template('result.html', info="Data Preview")
         try:
             amount, desc = user_input.split('/', 1)
             amount = int(amount)
@@ -38,24 +38,27 @@ def home():
             with open(LOG_FILE, 'w') as f:
                 json.dump(data, f)
 
-            # Display the sum and the input log as a table
-            return render_template('result.html', data=data, info="Save Successfully!")
+            return render_template('result.html', info="Save Successfully!")
         except Exception as e:
             if user_input == '/zero':
                 os.remove(LOG_FILE)
                 init_log()
-                with open(LOG_FILE, 'r') as f:
-                    data = json.load(f)
-                return render_template('result.html', data=data, info="Data Have Been Reset.")
+                return render_template('result.html', info="Data Have Been Reset.")
             elif user_input == '/delete':
                 data['sum'] -= data['log'][0]['amount']
                 del data['log'][0]
                 with open(LOG_FILE, 'w') as f:
                     json.dump(data, f)
-                return render_template('result.html', data=data, info="Deleted Latest Data.")
+                return render_template('result.html', info="Deleted Latest Data.")
             else:
-                return render_template('result.html', data=data, info="Error: Invalid input format.")
+                return render_template('result.html', info="Error: Invalid input format.")
     return render_template('home.html')
+
+@app.route('/get_log', methods=['GET'])
+def get_log():
+    with open(LOG_FILE, 'r') as f:
+        data = json.load(f)
+    return jsonify(data)
 
 @app.route('/manifest.json')
 def serve_manifest():
