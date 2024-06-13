@@ -54,7 +54,7 @@ def home():
                     json.dump(data, f)
                 return render_template('result.html', data=data, info="Deleted Latest Data.")
             else:
-                return f'<h1>Error: Invalid input format.</h1>'
+                return render_template('result.html', data=data, info="Error: Invalid input format.")
     return render_template('home.html')
 
 @app.route('/manifest.json')
