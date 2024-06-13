@@ -9,12 +9,20 @@ th, td {
     padding: 8px;
 }
 
+th:first-child{
+    border-top-left-radius: 10px;
+  }
+  
+th:last-child{
+    border-top-right-radius: 10px;
+}
+
 tr:nth-child(even){
     background-color: #f2f2f2
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #007BFF;
     color: white;
 }
 
