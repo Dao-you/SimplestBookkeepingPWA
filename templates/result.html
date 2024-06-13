@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ info }}</title>
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/connection.css') }}">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+	<link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+	<link rel="apple-touch-icon" sizes="192x192" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+	<link rel="apple-touch-icon" sizes="512x512" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+	<link rel="manifest" href="/manifest.json">
+
+  <script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
+
+  <style>
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="view info_title">
+    <h1>{{ info }}</h1>
+    <h1>Sum: {{ data['sum'] }}</h1>
+</div>
+
+  <table align="center">
+    <tr>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>category</th>
+      <th>Datetime</th>
+    </tr>
+    {% for entry in data['log'] %}
+      <tr>
+        <td>{{ entry['amount'] }}</td>
+        <td>{{ entry['description'] }}</td>
+        <td>{{ entry['category'] }}</td>
+        <td>{{ entry['datetime'] }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

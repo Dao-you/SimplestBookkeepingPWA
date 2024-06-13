@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BookKeeping</title>
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/connection.css') }}">
+	<link rel="icon" href="{{url_for('static', filename='icons/web-icon.svg')}}">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+	<link rel="apple-touch-icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+	<link rel="apple-touch-icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+	<link rel="apple-touch-icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+	<link rel="manifest" href="/manifest.json">
+
+	<script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
+
+	<style>
+
+    
+
+	</style>
+</head>
+<body>
+
+	<app-root></app-root>
+	<script type="text/javascript">
+
+		if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('./sw.js')
+			.then(reg => console.log('SW registered!'))
+			.catch(err => console.log('Error!', err));
+		}
+
+	</script>
+
+	<div class="view">
+		<div class="connection loading">
+			<img src="{{  url_for('static', filename='svgs/loading.svg')  }}" alt="">
+			<p>正在連線到伺服器</p>
+		</div>	
+	</div>
+
+	<form method="post" action="./">
+
+		<!-- 輸入框 -->
+		<input 
+			type="text" 
+			name="content_of_textbox" 
+			autocomplete="off" 
+			enterkeyhint="send" 
+			placeholder="50/bubble tea"
+		>
+		
+		<!-- 分類按鈕 -->
+		<br>
+			<div class="radio clearfix" style="margin:0px auto;">
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="飲食" checked/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>飲食</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="生活用品"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>生活用品</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="書籍費"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>書籍費</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="交通費"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>交通費</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="社團娛樂"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>社團娛樂</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="其他"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>其他</span>
+				</div>
+			</div>
+		<br>
+
+		<!-- 送出按鈕 -->
+		<input type="submit" value="send">
+	</form>
+
+	<script>
+
+	window.onload = function() {
+		var input = document.getElementsByName("content_of_textbox")[0];
+		input.focus();
+		input.select();
+		input.click();
+	};
+
+	document.addEventListener('DOMContentLoaded', function () {
+		const connectionDiv = document.querySelector('.connection');
+		const imgElement = connectionDiv.querySelector('img');
+		const pElement = connectionDiv.querySelector('p');
+
+		function connect() {
+			fetch('./test')
+				.then(response => {
+					if (response.ok) {
+						connectionDiv.classList.remove('loading');
+						connectionDiv.classList.add('success');
+						imgElement.src = "/static/svgs/success.svg";
+						pElement.textContent = "已連接到伺服器";
+						setTimeout(() => {
+							connectionDiv.classList.add('fade-out');
+						}, 2000); // Fade out after 2 seconds
+					} else {
+						connectionDiv.classList.remove('loading');
+						connectionDiv.classList.add('warning');
+						imgElement.src = "/static/svgs/warning.svg";
+						pElement.textContent = "無法連接到伺服器";
+						setTimeout(connect, 3000); // Retry after 3 seconds
+					}
+				})
+				.catch(error => {
+					connectionDiv.classList.remove('loading');
+					connectionDiv.classList.add('warning');
+					imgElement.src = "/static/svgs/warning.svg";
+					pElement.textContent = "無法連接到伺服器";
+					setTimeout(connect, 3000); // Retry after 3 seconds
+				});
+		}
+
+		connect();
+	});
+	</script>
+
+</body>
+</html>

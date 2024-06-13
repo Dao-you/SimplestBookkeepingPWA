@@ -1,0 +1,126 @@
+input[type=text] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80%;
+      max-width: 500px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+input[type=submit] {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* 選取方塊樣式 */    
+ul,li{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.clearfix::after{
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.radio-item {
+    position: relative;
+    width: 132px;
+    height: 44px;
+    line-height: 44px;
+    float: none;
+      display: inline-block;
+    /* margin-right: 12px; */
+    margin: 8px;
+    /* font-weight: bold; */
+}
+
+.radio-item input {
+    width: 120px;
+    height: 44px;
+    opacity: 0;
+    appearance: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.radio-item label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    padding: 4px 6px;
+    background-color: #EFEFEF;
+    border-radius: 5px;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.3s ease-out;
+}
+
+.radio-item label i {
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.radio-item label i.disc {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    border-radius: 100%;
+}
+
+.radio-item label i.active {
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    transform: rotate(-45deg) translate(4pt, 2pt);
+    display: none;
+
+}
+
+.radio-item span {
+    margin-left: 32px;
+}
+
+.radio-item input:checked + label {
+    background: #007BFF;
+    color: #FFFFFF;
+    box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
+}
+
+.radio-item input:checked + label i.disc {
+    display: none;
+}
+
+.radio-item input:checked + label i.active {
+    display: block;
+}
+
+.radio-item input:checked + label + span {
+    color: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+    .radio-item input:checked + label {
+        color: #bdbdbd;
+        box-shadow: 0 5px 20px 0 rgba(255, 255, 255, 0.5);
+    }
+    .radio-item label {
+        background-color: #a8a8a8;
+    }
+}
