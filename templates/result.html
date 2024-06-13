@@ -26,9 +26,11 @@
     <h1>{{ info }}</h1>
     <h1 id="sum">Sum: 0</h1>
 
-    <form method="get" action="./get_CSV">
-      <input type="submit" value="Download logs">
-    </form>
+    <div class="buttons">
+      <button onclick="window.location.href = './get_CSV'">Download logs</button>
+      <button onclick="history.back()">Turn Back</button>
+    </div>
+
   </div>
 
   <table align="center" id="logTable">
