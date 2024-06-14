@@ -18,6 +18,8 @@ input[type=submit] {
     cursor: pointer;
     font-size: 16px;
     transition: box-shadow 0.3s ease-out;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 input[type=submit]:hover {
@@ -45,10 +47,10 @@ ul,li{
     height: 44px;
     line-height: 44px;
     float: none;
-      display: inline-block;
-    /* margin-right: 12px; */
+    display: inline-block;
     margin: 8px;
-    /* font-weight: bold; */
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .radio-item input {
@@ -107,6 +109,14 @@ ul,li{
     background: #007BFF;
     color: #FFFFFF;
     box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
+}
+
+.radio-item#income input:checked + label {
+    background: #337736;
+}
+
+.radio-item#expense input:checked + label {
+    background: #b12e2e;
 }
 
 .radio-item input:checked + label i.disc {

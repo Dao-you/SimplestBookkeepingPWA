@@ -24,7 +24,11 @@
 <body>
   <div class="view info_title">
     <h1>{{ info }}</h1>
-    <h1 id="sum">Sum: 0</h1>
+    <div id="view_cards">
+      <div id="income"  class="view_tinycard">Income: 0</div>
+      <div id="expense" class="view_tinycard">Expense: 0</div>
+      <div id="balance" class="view_tinycard">Balance: 0</div>
+    </div>
   </div>
 
   <div class="buttons">
@@ -51,7 +55,10 @@
       fetch('./get_log')
         .then(response => response.json())
         .then(data => {
-          document.getElementById('sum').textContent = "Sum: " + data.sum;
+          document.getElementById('income').textContent = "Income: " + data.income;
+          document.getElementById('expense').textContent = "Expense: " + data.expense;
+          document.getElementById('balance').textContent = "Balance: " + (data.income - data.expense);
+          
           const logTableBody = document.getElementById('logTable').getElementsByTagName('tbody')[0];
           data.log.forEach(entry => {
             let row = logTableBody.insertRow();
@@ -59,7 +66,18 @@
             let descCell = row.insertCell(1);
             let categoryCell = row.insertCell(2);
             let datetimeCell = row.insertCell(3);
-            amountCell.textContent = entry.amount;
+            
+            let amountDiv = document.createElement('div');
+            amountDiv.textContent = entry.amount;
+            if (entry.type === '收入') {
+              amountDiv.classList.add('amount');
+              amountDiv.classList.add('income');
+            } else {
+              amountDiv.classList.add('amount');
+              amountDiv.classList.add('expense');
+            }
+            amountCell.appendChild(amountDiv);
+
             descCell.textContent = entry.description;
             categoryCell.textContent = entry.category;
             datetimeCell.textContent = formatDatetime(entry.datetime);

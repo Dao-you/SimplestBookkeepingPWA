@@ -55,6 +55,29 @@
 			placeholder="50/bubble tea"
 		>
 		
+		<!-- 收入或支出選擇 -->
+		<br>
+		<div class="radio clearfix" style="margin:0px auto;">
+			<div class="radio-item" id="expense">
+				<input type="radio" name="transaction_type" id="expense" value="支出" checked/>
+				<label>
+					<i class="disc"></i>
+					<i class="active"></i>
+				</label>
+				<span>Expense</span>
+			</div>
+			<div class="radio-item" id="income">
+				<input type="radio" name="transaction_type" id="income" value="收入"/>
+				<label>
+					<i class="disc"></i>
+					<i class="active"></i>
+				</label>
+				<span>Income</span>
+			</div>
+		</div>
+
+
+
 		<!-- 分類按鈕 -->
 		<br>
 			<div class="radio clearfix" style="margin:0px auto;">
@@ -110,7 +133,8 @@
 		<br>
 
 		<!-- 送出按鈕 -->
-		<input type="submit" value="send">
+		<input type="submit" value="Send">
+
 	</form>
 
 	<script>
