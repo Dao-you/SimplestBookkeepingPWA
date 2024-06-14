@@ -42,6 +42,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin: 15px;
+    margin-bottom: 24px;
     transition: box-shadow 0.3s ease-out;
 }
 
@@ -68,5 +69,8 @@ button:hover {
         /* --bgColor: #24323E; */
         /* --fontColor: #bdbdbd; */
         color: #FFFFFF;
+    }
+    button:hover {
+        box-shadow: 0 5px 20px 0 rgba(255, 255, 255, 0.5);
     }
 }

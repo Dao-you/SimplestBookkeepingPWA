@@ -6,7 +6,7 @@ table {
 
 th, td {
     text-align: left;
-    padding: 8px;
+    padding: 10px;
 }
 
 th:first-child{
@@ -17,8 +17,16 @@ th:last-child{
     border-top-right-radius: 10px;
 }
 
+tr:nth-child(odd){
+    background-color: #ffffff
+}
+
 tr:nth-child(even){
     background-color: #f2f2f2
+}
+
+tr:hover {
+    background-color: #d4d4d4;
 }
 
 th {
