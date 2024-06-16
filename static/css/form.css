@@ -12,7 +12,18 @@ input[type=text] {
     border-radius: 5px;
     border: 1px solid #ccc;
     width: 80%;
-      max-width: 500px;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+input[type=number] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 500px;
     box-sizing: border-box;
     margin-bottom: 10px;
 }

@@ -33,7 +33,7 @@
 
   <div class="buttons">
     <button onclick="window.location.href = './get_CSV'">Download logs</button>
-    <button onclick="history.back()">Turn Back</button>
+    <button onclick="window.location.href = '../'">Turn Back</button>
   </div>
 
   <table align="center" id="logTable">
@@ -62,6 +62,11 @@
           const logTableBody = document.getElementById('logTable').getElementsByTagName('tbody')[0];
           data.log.forEach(entry => {
             let row = logTableBody.insertRow();
+            row.id = entry.uuid;
+            row.addEventListener('click', function() {
+              window.location.href = `./edit_log/${entry.uuid}`;
+            });
+
             let amountCell = row.insertCell(0);
             let descCell = row.insertCell(1);
             let categoryCell = row.insertCell(2);

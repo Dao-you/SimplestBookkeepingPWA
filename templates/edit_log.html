@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Log Entry</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/connection.css') }}">
+    <link rel="icon" href="{{url_for('static', filename='icons/web-icon.svg')}}">
+    <link rel="icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+
+    <script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="view">
+        <h1>Edit Log Entry</h1>
+    </div>
+
+    <div class="form_main">
+        <form method="post" action="../../">
+            <!-- Amount and Description fields -->
+            <input type="text" name="uuid" placeholder="uuid" value="{{ entry.uuid }}" required readonly="true" style="display: none;">
+            <input type="number" name="amount" placeholder="Amount" value="{{ entry.amount }}" required>
+            <input type="text" name="description" placeholder="Description" value="{{ entry.description }}" required>
+            <br><br>
+
+            <!-- 收入或支出選擇 -->
+            <br>
+            <div class="radio clearfix" style="margin:0px auto;">
+                <div class="radio-item" id="expense">
+                    <input type="radio" name="transaction_type" id="expenseRadio" value="Expense" {% if entry.type == 'Expense' %}checked{% endif %}/>
+                    <label>
+                        <i class="disc"></i>
+                        <i class="active"></i>
+                    </label>
+                    <span>Expense</span>
+                </div>
+                <div class="radio-item" id="income">
+                    <input type="radio" name="transaction_type" id="incomeRadio" value="Income" {% if entry.type == 'Income' %}checked{% endif %}/>
+                    <label>
+                        <i class="disc"></i>
+                        <i class="active"></i>
+                    </label>
+                    <span>Income</span>
+                </div>
+            </div>
+
+            <!-- 分類按鈕 -->
+            <br>
+            <div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
+                {% for item in expenseCategory %}
+                <div class="radio-item">
+                    <input type="radio" name="category" id="{{ item }}" value="{{ item }}" {% if entry.category == item %}checked{% endif %}/>
+                    <label>
+                        <i class="disc"></i>
+                        <i class="active"></i>
+                    </label>
+                    <span>{{ item }}</span>
+                </div>
+                {% endfor %}
+                <div class="radio-item">
+                    <input type="radio" name="category" id="Others" value="Others" {% if entry.category == 'Others' %}checked{% endif %}/>
+                    <label>
+                        <i class="disc"></i>
+                        <i class="active"></i>
+                    </label>
+                    <span>Others</span>
+                </div>
+            </div>
+
+            <div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;">
+                {% for item in incomeCategory %}
+                <div class="radio-item">
+                    <input type="radio" name="category" id="{{ item }}" value="{{ item }}" {% if entry.category == item %}checked{% endif %}/>
+                    <label>
+                        <i class="disc"></i>
+                        <i class="active"></i>
+                    </label>
+                    <span>{{ item }}</span>
+                </div>
+                {% endfor %}
+                <div class="radio-item">
+                    <input type="radio" name="category" id="Others" value="Others" {% if entry.category == 'Others' %}checked{% endif %}/>
+                    <label>
+                        <i class="disc"></i>
+                        <i class="active"></i>
+                    </label>
+                    <span>Others</span>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- Submit button -->
+            <input type="submit" value="Update">
+        </form>
+        <button onclick="history.back()" class="cancel">Cancel</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const expenseRadio = document.getElementById('expenseRadio');
+            const incomeRadio = document.getElementById('incomeRadio');
+            const expenseCategory = document.getElementById('expenseCategory');
+            const incomeCategory = document.getElementById('incomeCategory');
+
+            // Show correct category section based on transaction type
+            if (incomeRadio.checked) {
+                expenseCategory.style.display = 'none';
+                incomeCategory.style.display = 'block';
+            } else {
+                expenseCategory.style.display = 'block';
+                incomeCategory.style.display = 'none';
+            }
+
+            // Listen to transaction type changes
+            expenseRadio.addEventListener('change', function () {
+                expenseCategory.style.display = 'block';
+                incomeCategory.style.display = 'none';
+            });
+
+            incomeRadio.addEventListener('change', function () {
+                incomeCategory.style.display = 'block';
+                expenseCategory.style.display = 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

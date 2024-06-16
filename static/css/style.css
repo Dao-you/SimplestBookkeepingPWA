@@ -47,6 +47,14 @@ button.iconBtn{
     padding: 4.5px 15px;
 }
 
+button.cancel {
+    background-color: gray;
+}
+
+button.cancel:hover {
+    background-color: rgb(151, 151, 151);
+}
+
 button:hover {
     background-color: #409cff;
     box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);

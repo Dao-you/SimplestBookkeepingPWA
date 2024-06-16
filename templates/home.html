@@ -84,7 +84,7 @@
 				<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
 					{% for item in expenseCategory %}
 					<div class="radio-item">
-						<input type="radio" name="category" id="" value="{{ item }}" checked/>
+						<input type="radio" name="category" id="{{ item }}" value="{{ item }}" checked/>
 						<label>
 							<i class="disc"></i>
 							<i class="active"></i>
@@ -93,7 +93,7 @@
 					</div>
 					{% endfor %}
 					<div class="radio-item">
-						<input type="radio" name="category" id="" value="其他"/>
+						<input type="radio" name="category" id="Others" value="Others"/>
 						<label>
 							<i class="disc"></i>
 							<i class="active"></i>
@@ -105,7 +105,7 @@
 				<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;">
 					{% for item in incomeCategory %}
 					<div class="radio-item">
-						<input type="radio" name="category" id="" value="{{ item }}" checked/>
+						<input type="radio" name="category" id="{{ item }}" value="{{ item }}" checked/>
 						<label>
 							<i class="disc"></i>
 							<i class="active"></i>
@@ -114,7 +114,7 @@
 					</div>
 					{% endfor %}
 					<div class="radio-item">
-						<input type="radio" name="category" id="" value="其他"/>
+						<input type="radio" name="category" id="" value="Others"/>
 						<label>
 							<i class="disc"></i>
 							<i class="active"></i>
