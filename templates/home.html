@@ -59,7 +59,7 @@
 		<br>
 		<div class="radio clearfix" style="margin:0px auto;">
 			<div class="radio-item" id="expense">
-				<input type="radio" name="transaction_type" id="expense" value="支出" checked/>
+				<input type="radio" name="transaction_type" id="expenseRadio" value="支出" checked/>
 				<label>
 					<i class="disc"></i>
 					<i class="active"></i>
@@ -67,7 +67,7 @@
 				<span>Expense</span>
 			</div>
 			<div class="radio-item" id="income">
-				<input type="radio" name="transaction_type" id="income" value="收入"/>
+				<input type="radio" name="transaction_type" id="incomeRadio" value="收入" />
 				<label>
 					<i class="disc"></i>
 					<i class="active"></i>
@@ -80,7 +80,7 @@
 
 		<!-- 分類按鈕 -->
 		<br>
-			<div class="radio clearfix" style="margin:0px auto;">
+			<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
 				<div class="radio-item">
 					<input type="radio" name="category" id="" value="飲食" checked/>
 					<label>
@@ -130,6 +130,58 @@
 					<span>其他</span>
 				</div>
 			</div>
+
+			<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory">
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="新水"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>新水</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="投資"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>投資</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="獎學金"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>獎學金</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="消費回饋"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>消費回饋</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="獎金"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>獎金</span>
+				</div>
+				<div class="radio-item">
+					<input type="radio" name="category" id="" value="其他"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>其他</span>
+				</div>
+			</div>
+
 		<br>
 
 		<!-- 送出按鈕 -->
@@ -181,6 +233,29 @@
 
 		connect();
 	});
+
+	document.addEventListener('DOMContentLoaded', function () {
+        const expenseRadio = document.getElementById('expenseRadio');
+        const incomeRadio = document.getElementById('incomeRadio');
+        const expenseCategory = document.getElementById('expenseCategory');
+        const incomeCategory = document.getElementById('incomeCategory');
+
+        // 預設顯示支出選項
+        expenseCategory.style.display = 'block';
+        incomeCategory.style.display = 'none';
+
+        // 監聽收入與支出選項的變化
+        expenseRadio.addEventListener('change', function () {
+            expenseCategory.style.display = 'block';
+            incomeCategory.style.display = 'none';
+        });
+
+        incomeRadio.addEventListener('change', function () {
+            incomeCategory.style.display = 'block';
+            expenseCategory.style.display = 'none';
+        });
+    });
+
 	</script>
 
 </body>
