@@ -18,7 +18,7 @@ def CSVconverter(filename="log"):
 
     # Write the data to CSV
     with open(csv_file, 'w', newline='') as csvfile:
-        fieldnames = ['amount', 'description', 'datetime', 'category']
+        fieldnames = ['uuid', 'amount', 'description', 'datetime', 'type', 'category']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
