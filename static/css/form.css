@@ -3,7 +3,11 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        height: 59vh;
+        /* height: 59vh; */
+}
+
+form {
+    margin: 5px;
 }
 
 input[type=text] {
@@ -14,7 +18,7 @@ input[type=text] {
     width: 80%;
     max-width: 500px;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    margin: 5px 0px;
 }
 
 input[type=number] {
@@ -39,6 +43,7 @@ input[type=submit] {
     transition: box-shadow 0.3s ease-out;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
+    min-width: 100px;
 }
 
 input[type=submit]:hover {

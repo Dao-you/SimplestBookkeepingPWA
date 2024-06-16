@@ -19,6 +19,7 @@ body {
     align-content: center;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 h1 {
@@ -37,10 +38,10 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin: 15px;
-    margin-bottom: 24px;
+    margin: 5px;
     transition: box-shadow 0.3s ease-out;
     font-weight: 600;
+    min-width: 100px;
 }
 
 button.iconBtn{
@@ -53,6 +54,14 @@ button.cancel {
 
 button.cancel:hover {
     background-color: rgb(151, 151, 151);
+}
+
+button.danger {
+    background-color: #b12e2e;
+}
+
+button.danger:hover {
+    background-color: #d43838;
 }
 
 button:hover {
@@ -131,7 +140,7 @@ button:hover {
         flex-wrap: nowrap;
         align-content: center;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
     }
 }
   

@@ -20,41 +20,8 @@ def init_log():
 def home():
     init_log()
     if request.method == 'POST':
-        
-        try: # Edit log
-            uuid = request.form['uuid']
-            amount = int(request.form['amount'])
-            desc = request.form['description']
-            category = request.form['category']
-            transaction_type = request.form['transaction_type']
-            dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-            with open(LOG_FILE, 'r') as f:
-                data = json.load(f)
-                entry = next((item for item in data['log'] if item['uuid'] == uuid), None)
-                if entry:
-                    # Update the entry
-                    data['income'] -= entry['amount'] if entry['type'] == 'Income' else 0
-                    data['expense'] -= entry['amount'] if entry['type'] == 'Expense' else 0
-                    entry.update({
-                        "amount": amount,
-                        "description": desc,
-                        "category": category,
-                        "type": transaction_type,
-                        "datetime": dt
-                    })
-                    data['income'] += amount if transaction_type == 'Income' else 0
-                    data['expense'] += amount if transaction_type == 'Expense' else 0
-
-                    with open(LOG_FILE, 'w') as f:
-                        json.dump(data, f)
-
-                    return render_template('result.html', info="Entry updated successfully!")
-                else:
-                    return '<h1>Entry not found<h1>', 404
-
-        except: # New log
-            user_input = request.form['content_of_textbox'].strip()
+        if request.form['action'] == 'new':
+            user_input = request.form['content_of_textbox']
             category = request.form['category']
             transaction_type = request.form['transaction_type']
 
@@ -82,13 +49,14 @@ def home():
 
                 return render_template('result.html', info="Save Successfully!")
             except Exception as e:
+                print(e)
                 if user_input == '/zero':
                     os.remove(LOG_FILE)
                     init_log()
                     return render_template('result.html', info="Data Have Been Reset.")
                 elif user_input == '/delete':
                     latest_entry = data['log'][0]
-                    if latest_entry['type'] == '收入':
+                    if latest_entry['type'] == 'Income':
                         data['income'] -= latest_entry['amount']
                     else:
                         data['expense'] -= latest_entry['amount']
@@ -98,7 +66,59 @@ def home():
                     return render_template('result.html', info="Deleted Latest Data.")
                 else:
                     return render_template('result.html', info="Error: Invalid input format.")
-    else:
+        
+        elif request.form['action'] == 'update':
+            uuid_str = request.form['uuid']
+            with open(LOG_FILE, 'r') as f:
+                data = json.load(f)
+                entry = next((item for item in data['log'] if item['uuid'] == uuid_str), None)
+            if entry:
+                amount = int(request.form['amount'])
+                desc = request.form['description']
+                category = request.form['category']
+                transaction_type = request.form['transaction_type']
+                dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                # Update the entry
+                data['income'] -= entry['amount'] if entry['type'] == 'Income' else 0
+                data['expense'] -= entry['amount'] if entry['type'] == 'Expense' else 0
+                entry.update({
+                    "amount": amount,
+                    "description": desc,
+                    "category": category,
+                    "type": transaction_type,
+                    "datetime": dt
+                })
+                data['income'] += amount if transaction_type == 'Income' else 0
+                data['expense'] += amount if transaction_type == 'Expense' else 0
+
+                with open(LOG_FILE, 'w') as f:
+                    json.dump(data, f)
+
+                return render_template('result.html', info="Entry updated successfully!")
+            else:
+                return '<h1>Entry not found<h1>', 404
+        
+        elif request.form['action'] == 'delete':
+            uuid_str = request.form['uuid']
+            with open(LOG_FILE, 'r') as f:
+                data = json.load(f)
+                entry = next((item for item in data['log'] if item['uuid'] == uuid_str), None)
+            if entry:
+                if entry['type'] == 'Income':
+                    data['income'] -= entry['amount']
+                else:
+                    data['expense'] -= entry['amount']
+                data['log'] = [item for item in data['log'] if item['uuid'] != uuid_str]
+
+                with open(LOG_FILE, 'w') as f:
+                    json.dump(data, f)
+
+                return render_template('result.html', info="Entry updated successfully!")
+            else:
+                return '<h1>Entry not found<h1>', 404
+
+
+    else: # GET
         
         try:
             with open('categories.json', 'r') as f:
@@ -153,11 +173,11 @@ def get_CSV():
     CSV = CSVconverter()
     return send_file(CSV)
 
-@app.route('/edit_log/<uuid>', methods=['GET'])
-def edit_log(uuid):
+@app.route('/edit_log/<uuid_str>', methods=['GET'])
+def edit_log(uuid_str):
     with open(LOG_FILE, 'r') as f:
         data = json.load(f)
-        entry = next((item for item in data['log'] if item['uuid'] == uuid), None)
+        entry = next((item for item in data['log'] if item['uuid'] == uuid_str), None)
 
         try:
             with open('categories.json', 'r') as f:
