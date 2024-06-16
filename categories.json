@@ -1,0 +1,17 @@
+{
+    "expense": [
+      "Dining",
+      "Household",
+      "Transportation",
+      "Entertainment",
+      "Healthcare"
+    ],
+    "income": [
+      "Salary", 
+      "Freelance", 
+      "Investment", 
+      "Rental", 
+      "Gifts"
+    ]
+  }
+  

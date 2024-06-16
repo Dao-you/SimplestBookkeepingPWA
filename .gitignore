@@ -1,4 +1,5 @@
 logs/*
-log.json
-Bookkeeping.zip
 __pycache__
+./BookKeeping.zip
+# ./log.json
+# ./categories.json

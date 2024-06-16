@@ -81,104 +81,44 @@
 		<!-- 分類按鈕 -->
 		<br>
 			<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
+				{% for item in expenseCategory %}
 				<div class="radio-item">
-					<input type="radio" name="category" id="" value="飲食" checked/>
+					<input type="radio" name="category" id="" value="{{ item }}" checked/>
 					<label>
 						<i class="disc"></i>
 						<i class="active"></i>
 					</label>
-					<span>飲食</span>
+					<span>{{ item }}</span>
 				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="生活用品"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>生活用品</span>
-				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="書籍費"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>書籍費</span>
-				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="交通費"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>交通費</span>
-				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="社團娛樂"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>社團娛樂</span>
-				</div>
+				{% endfor %}
 				<div class="radio-item">
 					<input type="radio" name="category" id="" value="其他"/>
 					<label>
 						<i class="disc"></i>
 						<i class="active"></i>
 					</label>
-					<span>其他</span>
+					<span>Others</span>
 				</div>
 			</div>
 
-			<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory">
+			<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;">
+				{% for item in incomeCategory %}
 				<div class="radio-item">
-					<input type="radio" name="category" id="" value="新水"/>
+					<input type="radio" name="category" id="" value="{{ item }}" checked/>
 					<label>
 						<i class="disc"></i>
 						<i class="active"></i>
 					</label>
-					<span>新水</span>
+					<span>{{ item }}</span>
 				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="投資"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>投資</span>
-				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="獎學金"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>獎學金</span>
-				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="消費回饋"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>消費回饋</span>
-				</div>
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="獎金"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>獎金</span>
-				</div>
+				{% endfor %}
 				<div class="radio-item">
 					<input type="radio" name="category" id="" value="其他"/>
 					<label>
 						<i class="disc"></i>
 						<i class="active"></i>
 					</label>
-					<span>其他</span>
+					<span>Others</span>
 				</div>
 			</div>
 

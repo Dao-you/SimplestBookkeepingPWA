@@ -63,7 +63,22 @@ def home():
             else:
                 return render_template('result.html', info="Error: Invalid input format.")
     else:
-        return render_template('home.html')
+        
+        try:
+            with open('categories.json', 'r') as f:
+                data = json.load(f)
+                expense = data['expense']
+                income  = data['income']
+                del data
+        except:
+            expense = ['Dining', 'Household', 'Transportation', 'Entertainment', 'Healthcare']
+            income  = ['Salary', 'Freelance', 'Investment', 'Rental', 'Gifts']
+
+        return render_template(
+            template_name_or_list = 'home.html', 
+            expenseCategory = expense, 
+            incomeCategory  = income
+        )
 
 
 @app.route('/get_log', methods=['GET'])
