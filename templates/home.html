@@ -44,92 +44,94 @@
 		</div>	
 	</div>
 
-	<form method="post" action="./">
+	<div class="form_main">
+		<form method="post" action="./">
 
-		<!-- 輸入框 -->
-		<input 
-			type="text" 
-			name="content_of_textbox" 
-			autocomplete="off" 
-			enterkeyhint="send" 
-			placeholder="50/bubble tea"
-		>
-		
-		<!-- 收入或支出選擇 -->
-		<br>
-		<div class="radio clearfix" style="margin:0px auto;">
-			<div class="radio-item" id="expense">
-				<input type="radio" name="transaction_type" id="expenseRadio" value="Expense" checked/>
-				<label>
-					<i class="disc"></i>
-					<i class="active"></i>
-				</label>
-				<span>Expense</span>
-			</div>
-			<div class="radio-item" id="income">
-				<input type="radio" name="transaction_type" id="incomeRadio" value="Income" />
-				<label>
-					<i class="disc"></i>
-					<i class="active"></i>
-				</label>
-				<span>Income</span>
-			</div>
-		</div>
-
-
-
-		<!-- 分類按鈕 -->
-		<br>
-			<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
-				{% for item in expenseCategory %}
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="{{ item }}" checked/>
+			<!-- 輸入框 -->
+			<input 
+				type="text" 
+				name="content_of_textbox" 
+				autocomplete="off" 
+				enterkeyhint="send" 
+				placeholder="50/bubble tea"
+			>
+			
+			<!-- 收入或支出選擇 -->
+			<br>
+			<div class="radio clearfix" style="margin:0px auto;">
+				<div class="radio-item" id="expense">
+					<input type="radio" name="transaction_type" id="expenseRadio" value="Expense" checked/>
 					<label>
 						<i class="disc"></i>
 						<i class="active"></i>
 					</label>
-					<span>{{ item }}</span>
+					<span>Expense</span>
 				</div>
-				{% endfor %}
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="其他"/>
+				<div class="radio-item" id="income">
+					<input type="radio" name="transaction_type" id="incomeRadio" value="Income" />
 					<label>
 						<i class="disc"></i>
 						<i class="active"></i>
 					</label>
-					<span>Others</span>
+					<span>Income</span>
 				</div>
 			</div>
 
-			<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;">
-				{% for item in incomeCategory %}
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="{{ item }}" checked/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>{{ item }}</span>
+
+
+			<!-- 分類按鈕 -->
+			<br>
+				<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
+					{% for item in expenseCategory %}
+					<div class="radio-item">
+						<input type="radio" name="category" id="" value="{{ item }}" checked/>
+						<label>
+							<i class="disc"></i>
+							<i class="active"></i>
+						</label>
+						<span>{{ item }}</span>
+					</div>
+					{% endfor %}
+					<div class="radio-item">
+						<input type="radio" name="category" id="" value="其他"/>
+						<label>
+							<i class="disc"></i>
+							<i class="active"></i>
+						</label>
+						<span>Others</span>
+					</div>
 				</div>
-				{% endfor %}
-				<div class="radio-item">
-					<input type="radio" name="category" id="" value="其他"/>
-					<label>
-						<i class="disc"></i>
-						<i class="active"></i>
-					</label>
-					<span>Others</span>
+
+				<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;">
+					{% for item in incomeCategory %}
+					<div class="radio-item">
+						<input type="radio" name="category" id="" value="{{ item }}" checked/>
+						<label>
+							<i class="disc"></i>
+							<i class="active"></i>
+						</label>
+						<span>{{ item }}</span>
+					</div>
+					{% endfor %}
+					<div class="radio-item">
+						<input type="radio" name="category" id="" value="其他"/>
+						<label>
+							<i class="disc"></i>
+							<i class="active"></i>
+						</label>
+						<span>Others</span>
+					</div>
 				</div>
-			</div>
 
-		<br>
+			<br>
 
-		<!-- 送出按鈕 -->
-		<input type="submit" value="Send">
-		<br><br>
-		<a href="./edit_categories">Click here to edit categories option.</a>
+			<!-- 送出按鈕 -->
+			<input type="submit" value="Send">
+			<br><br>
+			<a href="./edit_categories">Click here to edit categories option.</a>
 
-	</form>
+		</form>
+	</div>
 
 	<script>
 

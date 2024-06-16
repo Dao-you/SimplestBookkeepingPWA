@@ -2,14 +2,6 @@ body {
     text-align: center;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 59vh;
-}
-
 .view {
     display: flex;
     flex-direction: column;
@@ -48,6 +40,7 @@ button {
     margin: 15px;
     margin-bottom: 24px;
     transition: box-shadow 0.3s ease-out;
+    font-weight: 600;
 }
 
 button.iconBtn{

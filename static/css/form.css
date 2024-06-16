@@ -1,3 +1,11 @@
+.form_main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: 59vh;
+}
+
 input[type=text] {
     padding: 10px;
     font-size: 16px;
@@ -18,7 +26,7 @@ input[type=submit] {
     cursor: pointer;
     font-size: 16px;
     transition: box-shadow 0.3s ease-out;
-    font-weight: 500;
+    font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
 }
 
