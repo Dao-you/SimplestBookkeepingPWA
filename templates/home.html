@@ -40,7 +40,7 @@
 	<div class="view">
 		<div class="connection loading">
 			<img src="{{  url_for('static', filename='svgs/loading.svg')  }}" alt="">
-			<p>正在連線到伺服器</p>
+			<p>Connecting to server</p>
 		</div>	
 	</div>
 
@@ -150,7 +150,7 @@
 						connectionDiv.classList.remove('loading');
 						connectionDiv.classList.add('success');
 						imgElement.src = "/static/svgs/success.svg";
-						pElement.textContent = "已連接到伺服器";
+						pElement.textContent = "Server connection successful";
 						setTimeout(() => {
 							connectionDiv.classList.add('fade-out');
 						}, 2000); // Fade out after 2 seconds
@@ -158,7 +158,7 @@
 						connectionDiv.classList.remove('loading');
 						connectionDiv.classList.add('warning');
 						imgElement.src = "/static/svgs/warning.svg";
-						pElement.textContent = "無法連接到伺服器";
+						pElement.textContent = "Server connection failed";
 						setTimeout(connect, 3000); // Retry after 3 seconds
 					}
 				})
@@ -166,7 +166,7 @@
 					connectionDiv.classList.remove('loading');
 					connectionDiv.classList.add('warning');
 					imgElement.src = "/static/svgs/warning.svg";
-					pElement.textContent = "無法連接到伺服器";
+					pElement.textContent = "Server connection failed";
 					setTimeout(connect, 3000); // Retry after 3 seconds
 				});
 		}
