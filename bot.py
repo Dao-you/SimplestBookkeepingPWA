@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory, send_file, jsonify
+from flask import Flask, request, render_template, send_from_directory, send_file, jsonify, redirect, url_for
 from datetime import datetime
 import json
 import os
@@ -7,6 +7,7 @@ from CSVconverter import CSVconverter
 app = Flask(__name__)
 
 LOG_FILE = 'log.json'
+CATEGORIES_FILE = 'categories.json'
 
 def init_log():
     if not os.path.isfile(LOG_FILE) or os.stat(LOG_FILE).st_size == 0:
@@ -80,6 +81,31 @@ def home():
             incomeCategory  = income
         )
 
+@app.route('/edit_categories', methods=['GET', 'POST'])
+def edit_categories():
+    # Ensure the categories file exists
+    if not os.path.isfile(CATEGORIES_FILE):
+        categories = {
+            "expense": ["Dining", "Household", "Transportation", "Entertainment", "Healthcare"],
+            "income": ["Salary", "Freelance", "Investment", "Rental", "Gifts"]
+        }
+        with open(CATEGORIES_FILE, 'w') as f:
+            json.dump(categories, f)
+    
+    if request.method == 'POST':
+        try:
+            new_categories = request.form.to_dict(flat=False)
+            new_categories = {k: v for k, v in new_categories.items() if v}
+            with open(CATEGORIES_FILE, 'w') as f:
+                json.dump(new_categories, f)
+            return redirect(url_for('home'))
+        except Exception as e:
+            return render_template('edit_categories.html', categories={}, error=str(e))
+
+    else:
+        with open(CATEGORIES_FILE, 'r') as f:
+            categories = json.load(f)
+        return render_template('edit_categories.html', categories=categories)
 
 @app.route('/get_log', methods=['GET'])
 def get_log():

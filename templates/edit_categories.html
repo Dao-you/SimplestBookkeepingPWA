@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Categories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/connection.css') }}">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+	<link rel="icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+	<link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+	<link rel="apple-touch-icon" sizes="192x192" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+	<link rel="apple-touch-icon" sizes="512x512" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+	<link rel="manifest" href="/manifest.json">
+
+    <script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="view info_title">
+        <h1>Edit Categories</h1>
+    </div>
+    <form id="categoriesForm" method="post" action="/edit_categories">
+        <div class="action_cards">
+            <div class="action_card">
+                <div id="expense" class="view_tinycard">Expense</div>
+                <ul id="expenseCategories">
+                    {% for category in categories.expense %}
+                    <il>
+                        <div class="edit">
+                            <input type="text" name="expense" value="{{ category }}">
+                            <button type="button" class="deleteBtn iconBtn" style="background-color: #b12e2e;">
+                                <span class="material-symbols-outlined" style="font-size: 20pt;">
+                                    delete
+                                </span>
+                            </button>
+                        </div>
+                    </il>
+                    {% endfor %}
+                </ul>
+                <div class="edit">
+                    <input type="text" disabled="disabled">
+                    <button type="button" class="iconBtn" id="addExpenseCategoryBtn">
+                        <span class="material-symbols-outlined" style="font-size: 20pt;">
+                            add_circle
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="action_card">
+                <div id="income"  class="view_tinycard">Income</div>
+                <ul id="incomeCategories">
+                    {% for category in categories.income %}
+                    <il>
+                        <div class="edit">
+                            <input type="text" name="income" value="{{ category }}">
+                            <button type="button" class="deleteBtn iconBtn" style="background-color: #b12e2e;">
+                                <span class="material-symbols-outlined" style="font-size: 20pt;">
+                                    delete
+                                </span>
+                            </button>
+                        </div> 
+                    </il>
+                    {% endfor %}
+                </ul>
+                <div class="edit">
+                    <input type="text" disabled="disabled">
+                    <button type="button" class="iconBtn" id="addIncomeCategoryBtn">
+                        <span class="material-symbols-outlined" style="font-size: 20pt;">
+                            add_circle
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <button type="submit">Save Changes</button>
+        <button onclick="history.back()" style="background-color: gray;">Cancel</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("addExpenseCategoryBtn").addEventListener("click", function() {
+                addCategory('expense');
+            });
+
+            document.getElementById("addIncomeCategoryBtn").addEventListener("click", function() {
+                addCategory('income');
+            });
+
+            // Initialize delete buttons for existing categories
+            document.querySelectorAll('.deleteBtn').forEach(function(button) {
+                button.addEventListener("click", function() {
+                    deleteCategory(this);
+                });
+            });
+        });
+
+        function addCategory(type) {
+            var categoryList = document.getElementById(type + 'Categories');
+            var newCategoryElement = document.createElement('li');
+            newCategoryElement.innerHTML = `
+                <div class="edit">
+                    <input type="text" name="${type}" value="">
+                    <button type="button" class="deleteBtn iconBtn" style="background-color: #b12e2e;">
+                        <span class="material-symbols-outlined" style="font-size: 20pt;">
+                            delete
+                        </span>
+                    </button>
+                </div>
+            `;
+            // Add event listener to the new delete button
+            newCategoryElement.querySelector('.deleteBtn').addEventListener("click", function() {
+                deleteCategory(this);
+            });
+
+            categoryList.appendChild(newCategoryElement);
+        }
+
+        function deleteCategory(button) {
+            var categoryElement = button.parentElement.parentElement;
+            categoryElement.remove();
+        }
+    </script>
+
+</body>
+</html>

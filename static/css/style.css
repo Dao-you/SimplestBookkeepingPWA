@@ -33,6 +33,10 @@ h1 {
     text-align: center;
 }
 
+a {
+    color: gray;
+}
+
 button {
     background-color: #007BFF;
     color: white;
@@ -44,6 +48,10 @@ button {
     margin: 15px;
     margin-bottom: 24px;
     transition: box-shadow 0.3s ease-out;
+}
+
+button.iconBtn{
+    padding: 4.5px 15px;
 }
 
 button:hover {
@@ -84,15 +92,59 @@ button:hover {
     background-color: #b12e2e;
 }
 
+.action_card {
+    padding: 24px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 0;
+}
+
 @media (orientation: portrait) {
     .info_title {
-        height: 39vh;; /* 橫向時的高度 */
+        height: 39vh;
     }
-  }
+    .action_cards {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: flex-start;
+    }
+}
   
 @media (orientation: landscape) {
     .info_title {
         height: auto; /* 直向時的高度 */
+    }
+    .action_cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: flex-start;
     }
 }
 
