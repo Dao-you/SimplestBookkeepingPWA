@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <title>Edit Categories</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/connection.css') }}">
+        <link rel="icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+        <link rel="icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+        <link rel="icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+        <link rel="apple-touch-icon" sizes="192x192" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+        <link rel="apple-touch-icon" sizes="512x512" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+        <link rel="manifest" href="/manifest.json">
+    
+        <script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="view info_title">
+        <h1>Income and Expense Summary</h1>
+    </div>
+
+    <div>
+        <div class="action_cards">
+
+            <div class="action_card">
+                <div id="expense" class="view_tinycard">Expense</div>
+                <div class="chart-container">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+
+            <div class="action_card">
+                <div id="income"  class="view_tinycard">Income</div>
+                <div class="chart-container">
+                    <canvas id="incomeChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <br><br>
+        <button onclick="window.location.href = '../'">Turn Back</button>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        fetch('/get_log')
+            .then(response => response.json())
+            .then(data => {
+                const incomeData = Object.values(data.categories.income);
+                const expenseData = Object.values(data.categories.expense);
+
+                const incomeColors = [
+                    '#4CAF50', '#2196F3', '#FFC107', '#FF5722', '#9C27B0',
+                    '#3F51B5', '#FFEB3B', '#FF9800', '#CDDC39', '#009688',
+                    '#795548', '#673AB7', '#FF5252', '#607D8B', '#E91E63',
+                    '#03A9F4', '#8BC34A', '#FF4081', '#00BCD4', '#FF5722'
+                ];
+
+                const expenseColors = [
+                    '#FF5722', '#E91E63', '#607D8B', '#9C27B0', '#FF9800',
+                    '#2196F3', '#FFEB3B', '#3F51B5', '#673AB7', '#FF5252',
+                    '#4CAF50', '#FF4081', '#00BCD4', '#795548', '#CDDC39',
+                    '#03A9F4', '#8BC34A', '#FF5722', '#FFC107', '#9E9E9E'
+                ];
+
+                var incomeChartCanvas = document.getElementById('incomeChart').getContext('2d');
+                new Chart(incomeChartCanvas, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(data.categories.income),
+                        datasets: [{
+                            label: 'Income',
+                            data: incomeData,
+                            backgroundColor: incomeColors.slice(0, incomeData.length),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        title: {
+                            display: true,
+                            text: 'Income Categories'
+                        }
+                    }
+                });
+
+                var expenseChartCanvas = document.getElementById('expenseChart').getContext('2d');
+                new Chart(expenseChartCanvas, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(data.categories.expense),
+                        datasets: [{
+                            label: 'Expense',
+                            data: expenseData,
+                            backgroundColor: expenseColors.slice(0, expenseData.length),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        title: {
+                            display: true,
+                            text: 'Expense Categories'
+                        }
+                    }
+                });
+            });
+    </script>
+</body>
+</html>

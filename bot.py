@@ -236,6 +236,10 @@ def edit_log(uuid_str):
         else:
             return '<h1>Entry not found<h1>', 404
 
+@app.route('/chart', methods=['GET'])
+def chart():
+    return render_template('chart.html')
+
 @app.route('/manifest.json')
 def serve_manifest():
     return send_file('manifest.json', mimetype='application/manifest+json')
