@@ -13,7 +13,15 @@ CATEGORIES_FILE = 'categories.json'
 def init_log():
     if not os.path.isfile(LOG_FILE) or os.stat(LOG_FILE).st_size == 0:
         with open(LOG_FILE, 'w') as f:
-            data = {"income": 0, "expense": 0, "log": []}
+            data = {
+                "income": 0,
+                "expense": 0,
+                "categories": {
+                    "income": {},
+                    "expense": {}
+                },
+                "log": []
+            }
             json.dump(data, f)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -42,8 +50,17 @@ def home():
                 data['log'].insert(0, result)
                 if transaction_type == 'Income':
                     data['income'] += amount
+                    if category in data['categories']['income']:
+                        data['categories']['income'][category] += amount
+                    else:
+                        data['categories']['income'][category] = amount
                 else:
                     data['expense'] += amount
+                    if category in data['categories']['expense']:
+                        data['categories']['expense'][category] += amount
+                    else:
+                        data['categories']['expense'][category] = amount
+
                 with open(LOG_FILE, 'w') as f:
                     json.dump(data, f)
 
@@ -58,8 +75,10 @@ def home():
                     latest_entry = data['log'][0]
                     if latest_entry['type'] == 'Income':
                         data['income'] -= latest_entry['amount']
+                        data['categories']['income'][latest_entry['category']] -= latest_entry['amount']
                     else:
                         data['expense'] -= latest_entry['amount']
+                        data['categories']['expense'][latest_entry['category']] -= latest_entry['amount']
                     del data['log'][0]
                     with open(LOG_FILE, 'w') as f:
                         json.dump(data, f)
@@ -79,8 +98,13 @@ def home():
                 transaction_type = request.form['transaction_type']
                 dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 # Update the entry
-                data['income'] -= entry['amount'] if entry['type'] == 'Income' else 0
-                data['expense'] -= entry['amount'] if entry['type'] == 'Expense' else 0
+                if entry['type'] == 'Income':
+                    data['income'] -= entry['amount']
+                    data['categories']['income'][entry['category']] -= entry['amount']
+                else:
+                    data['expense'] -= entry['amount']
+                    data['categories']['expense'][entry['category']] -= entry['amount']
+
                 entry.update({
                     "amount": amount,
                     "description": desc,
@@ -88,8 +112,19 @@ def home():
                     "type": transaction_type,
                     "datetime": dt
                 })
-                data['income'] += amount if transaction_type == 'Income' else 0
-                data['expense'] += amount if transaction_type == 'Expense' else 0
+
+                if transaction_type == 'Income':
+                    data['income'] += amount
+                    if category in data['categories']['income']:
+                        data['categories']['income'][category] += amount
+                    else:
+                        data['categories']['income'][category] = amount
+                else:
+                    data['expense'] += amount
+                    if category in data['categories']['expense']:
+                        data['categories']['expense'][category] += amount
+                    else:
+                        data['categories']['expense'][category] = amount
 
                 with open(LOG_FILE, 'w') as f:
                     json.dump(data, f)
@@ -106,8 +141,10 @@ def home():
             if entry:
                 if entry['type'] == 'Income':
                     data['income'] -= entry['amount']
+                    data['categories']['income'][entry['category']] -= entry['amount']
                 else:
                     data['expense'] -= entry['amount']
+                    data['categories']['expense'][entry['category']] -= entry['amount']
                 data['log'] = [item for item in data['log'] if item['uuid'] != uuid_str]
 
                 with open(LOG_FILE, 'w') as f:
@@ -121,7 +158,7 @@ def home():
     else: # GET
         
         try:
-            with open('categories.json', 'r') as f:
+            with open(CATEGORIES_FILE, 'r') as f:
                 data = json.load(f)
                 expense = data['expense']
                 income  = data['income']
@@ -180,7 +217,7 @@ def edit_log(uuid_str):
         entry = next((item for item in data['log'] if item['uuid'] == uuid_str), None)
 
         try:
-            with open('categories.json', 'r') as f:
+            with open(CATEGORIES_FILE, 'r') as f:
                 data = json.load(f)
                 expense = data['expense']
                 income  = data['income']

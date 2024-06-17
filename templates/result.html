@@ -24,10 +24,15 @@
 <body>
   <div class="view info_title">
     <h1>{{ info }}</h1>
-    <div id="view_cards">
+    <div class="view_cards">
       <div id="income"  class="view_tinycard">Income: 0</div>
       <div id="expense" class="view_tinycard">Expense: 0</div>
       <div id="balance" class="view_tinycard">Balance: 0</div>
+    </div>
+    <div style="width: 100%;display: flex;height: 75px; flex-direction: row;justify-content: center;">
+      <div class="view_cards" id="categories_sum">
+
+      </div>
     </div>
   </div>
 
@@ -58,6 +63,18 @@
           document.getElementById('income').textContent = "Income: " + data.income;
           document.getElementById('expense').textContent = "Expense: " + data.expense;
           document.getElementById('balance').textContent = "Balance: " + (data.income - data.expense);
+
+          const categoriesSum = document.getElementById('categories_sum');
+          const categories = data.categories;
+          for (const type in categories) {
+              for (const category in categories[type]) {
+                  const div = document.createElement('div');
+                  div.className = 'view_tinycard';
+                  div.id = type;  // or set a unique id if needed
+                  div.innerText = `${category}: ${categories[type][category]}`;
+                  categoriesSum.appendChild(div);
+              }
+          }
           
           const logTableBody = document.getElementById('logTable').getElementsByTagName('tbody')[0];
           data.log.forEach(entry => {
