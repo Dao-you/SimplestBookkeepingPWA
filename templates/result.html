@@ -61,6 +61,8 @@
     </tbody>
   </table>
 
+  <button onclick="clearLogs()" class="danger" style="margin-top: 20px;">Clear</button>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       fetch('./get_log')
@@ -149,6 +151,30 @@
         return 'afternoon';
       } else {
         return 'evening';
+      }
+    }
+
+    function clearLogs() {
+      if (confirm("Are you sure you want to delete all of the logs?")) {
+        fetch('./get_CSV')
+          .then(response => {
+            // 下載檔案
+            return response.blob();
+          })
+          .then(blob => {
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'log.csv');
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+          })
+          .then(() => {
+            // 跳轉到清除操作
+            window.location.href = './clear';
+          })
+          .catch(error => console.error('Error clearing logs:', error));
       }
     }
   </script>

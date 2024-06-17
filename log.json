@@ -1,52 +1,6 @@
 {
-  "income": 68000,
-  "expense": 17350,
-  "categories": {
-    "income": {
-      "Salary": 40000,
-      "Freelance": 12000,
-      "Investment": 8000,
-      "Rental": 6000,
-      "Gifts": 2000
-    },
-    "expense": {
-      "Dining": 5000,
-      "Household": 4000,
-      "Transportation": 3500,
-      "Entertainment": 3000,
-      "Healthcare": 1850
-    }
-  },
-  "log": [
-    {"uuid": "02a00523-3919-471f-b097-a05eb76a3679", "amount": 1000, "description": "Dinner with friends", "datetime": "2024-06-01 19:30:00", "category": "Dining", "type": "Expense"},
-    {"uuid": "31cf2ea3-82f7-4015-8fa4-d1415d221845", "amount": 1200, "description": "Groceries", "datetime": "2024-06-02 14:45:00", "category": "Household", "type": "Expense"},
-    {"uuid": "486b14bf-db2d-4629-ade4-03dd02a59dce", "amount": 800, "description": "Gas", "datetime": "2024-06-03 08:00:00", "category": "Transportation", "type": "Expense"},
-    {"uuid": "bdf5077b-8d8a-4ecf-ac1d-b3db6c8640e4", "amount": 500, "description": "Movie tickets", "datetime": "2024-06-03 20:00:00", "category": "Entertainment", "type": "Expense"},
-    {"uuid": "6f5da0c6-351e-4bd9-a8a4-3a55f0210c6a", "amount": 500, "description": "Medicine", "datetime": "2024-06-04 09:00:00", "category": "Healthcare", "type": "Expense"},
-    {"uuid": "58caa355-e92e-4a0b-b6da-68c091b29264", "amount": 5000, "description": "Salary payment", "datetime": "2024-06-05 10:00:00", "category": "Salary", "type": "Income"},
-    {"uuid": "bf0efe0f-10b9-4fab-bc3a-3367a1a49259", "amount": 700, "description": "Dining out", "datetime": "2024-06-05 18:00:00", "category": "Dining", "type": "Expense"},
-    {"uuid": "ce10a9ed-61b2-4dec-b27f-88525b5f3908", "amount": 900, "description": "Household items", "datetime": "2024-06-06 15:00:00", "category": "Household", "type": "Expense"},
-    {"uuid": "e8c730c4-cf38-4052-8ae8-6c1b5ec640e0", "amount": 1000, "description": "Freelance project", "datetime": "2024-06-07 11:00:00", "category": "Freelance", "type": "Income"},
-    {"uuid": "7898c9de-45e1-4921-9b07-c1e7d7381ef6", "amount": 600, "description": "Taxi fare", "datetime": "2024-06-07 22:00:00", "category": "Transportation", "type": "Expense"},
-    {"uuid": "26436a2d-4ca0-4b24-9f20-787d678f93e4", "amount": 2000, "description": "Investment profit", "datetime": "2024-06-08 09:00:00", "category": "Investment", "type": "Income"},
-    {"uuid": "aad8d334-03fe-45a7-acb3-1cadbdadd067", "amount": 800, "description": "Concert tickets", "datetime": "2024-06-08 20:00:00", "category": "Entertainment", "type": "Expense"},
-    {"uuid": "baff36ef-3da4-4e11-b863-428477121b31", "amount": 300, "description": "Clinic visit", "datetime": "2024-06-09 10:00:00", "category": "Healthcare", "type": "Expense"},
-    {"uuid": "49b38496-f183-45e9-9882-a67c0a9d4523", "amount": 4000, "description": "Salary payment", "datetime": "2024-06-10 10:00:00", "category": "Salary", "type": "Income"},
-    {"uuid": "cd873ad7-6cc4-4afc-b8ba-cc408c97d274", "amount": 1100, "description": "Restaurant bill", "datetime": "2024-06-10 20:00:00", "category": "Dining", "type": "Expense"},
-    {"uuid": "dd0b760f-8126-47c6-962f-12fe607297ef", "amount": 1500, "description": "Home repair", "datetime": "2024-06-11 14:00:00", "category": "Household", "type": "Expense"},
-    {"uuid": "44557653-844e-4e45-b99c-8b5094c7f240", "amount": 1200, "description": "Bus pass", "datetime": "2024-06-12 08:00:00", "category": "Transportation", "type": "Expense"},
-    {"uuid": "66de06ac-9a46-420b-a4a6-2507dc30f5b3", "amount": 700, "description": "Freelance work", "datetime": "2024-06-13 12:00:00", "category": "Freelance", "type": "Income"},
-    {"uuid": "77dd81b1-1002-48d5-b6d3-d557b6b356d2", "amount": 500, "description": "Comedy show tickets", "datetime": "2024-06-13 19:00:00", "category": "Entertainment", "type": "Expense"},
-    {"uuid": "a80ffc0a-077e-4776-b3e2-11ebb45b9e81", "amount": 500, "description": "Pharmacy purchase", "datetime": "2024-06-14 11:00:00", "category": "Healthcare", "type": "Expense"},
-    {"uuid": "a26eb27b-2a4d-4784-847b-ce04edb3a6fc", "amount": 2000, "description": "Gift from parents", "datetime": "2024-06-15 15:00:00", "category": "Gifts", "type": "Income"},
-    {"uuid": "4d15ece8-ea3b-4c0b-83a6-a82d619a9452", "amount": 6000, "description": "Rental income", "datetime": "2024-06-16 09:00:00", "category": "Rental", "type": "Income"},
-    {"uuid": "6b57d977-bd99-4f22-955c-cf7c639e8f20", "amount": 1500, "description": "Freelance project", "datetime": "2024-06-17 10:00:00", "category": "Freelance", "type": "Income"},
-    {"uuid": "ac6457bd-05b8-4fbe-95f6-7099832d207f", "amount": 1000, "description": "Lunch with colleagues", "datetime": "2024-06-17 13:00:00", "category": "Dining", "type": "Expense"},
-    {"uuid": "fdd24ba8-151a-4a08-aae6-1b66a8cb0488", "amount": 800, "description": "House cleaning supplies", "datetime": "2024-06-18 14:00:00", "category": "Household", "type": "Expense"},
-    {"uuid": "deeae9cc-a921-45db-9162-cca204bf0777", "amount": 700, "description": "Subway tickets", "datetime": "2024-06-19 07:30:00", "category": "Transportation", "type": "Expense"},
-    {"uuid": "f508b398-dec3-48ee-a85d-3fd2ab65d701", "amount": 3000, "description": "Dividend payout", "datetime": "2024-06-20 09:00:00", "category": "Investment", "type": "Income"},
-    {"uuid": "90ac3d3c-bb6f-4bcd-ae7b-a89800444033", "amount": 400, "description": "Movie streaming subscription", "datetime": "2024-06-20 21:00:00", "category": "Entertainment", "type": "Expense"},
-    {"uuid": "901c0cbb-1b61-423f-9b5f-c609d72338ce", "amount": 250, "description": "OTC medication", "datetime": "2024-06-21 10:00:00", "category": "Healthcare", "type": "Expense"},
-    {"uuid": "9102ab35-78b4-4bc4-af26-48430d0d5b0e", "amount": 6000, "description": "Salary payment", "datetime": "2024-06-22 10:00:00", "category": "Salary", "type": "Income"}
-  ]
+  "income": 0,
+  "expense": 0,
+  "categories": { "income": {}, "expense": {} },
+  "log": []
 }

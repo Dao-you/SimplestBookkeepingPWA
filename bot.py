@@ -210,6 +210,12 @@ def get_CSV():
     CSV = CSVconverter()
     return send_file(CSV)
 
+@app.route('/clear', methods=['GET'])
+def clear():
+    os.remove(LOG_FILE)
+    init_log()
+    return render_template('result.html', info="Data Have Been Reset.")
+
 @app.route('/edit_log/<uuid_str>', methods=['GET'])
 def edit_log(uuid_str):
     with open(LOG_FILE, 'r') as f:
