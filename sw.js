@@ -15,7 +15,7 @@ const filesToCache = [
   '/static/css/table.css',
   '/',
   '/chart',
-  'load_css'
+  '/load_CSV'
 ];
 
 self.addEventListener('install', event => {
