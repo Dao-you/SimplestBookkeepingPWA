@@ -54,7 +54,7 @@ Simplest Bookkeeping PWA is a progressive web application designed to help you m
 
 6. **Run the Development Server**:
     ```sh
-    python app.py
+    python bot.py
     ```
 
 7. **Access the Application**:
