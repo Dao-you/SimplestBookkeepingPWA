@@ -31,8 +31,8 @@ Simplest Bookkeeping PWA is a progressive web application designed to help you m
 
 1. **Clone the Repository**:
     ```sh
-    git clone https://github.com/Dao-you/SImplestBookkeepingPWA.git
-    cd SImplestBookkeepingPWA
+    git clone https://github.com/Dao-you/SimplestBookkeepingPWA.git
+    cd SimplestBookkeepingPWA
     ```
 
 2. **Install Dependencies**:
