@@ -11,7 +11,6 @@ Simplest Bookkeeping PWA is a progressive web application designed to help you m
 - **Transaction Recording**: Log various income and expense entries.
 - **CSV Export**: Export your transaction records to a CSV file for further analysis.
 - **Category Management**: Use default categories or create custom ones to organize your transactions.
-- **Offline Functionality**: Access and use the app without an internet connection, with data syncing upon reconnection.
 
 ## Benefits of PWA
 
@@ -31,8 +30,8 @@ Simplest Bookkeeping PWA is a progressive web application designed to help you m
 
 1. **Clone the Repository**:
     ```sh
-    git clone https://github.com/Dao-you/SImplestBookkeepingPWA.git
-    cd SImplestBookkeepingPWA
+    git clone https://github.com/Dao-you/SimplestBookkeepingPWA.git
+    cd SimplestBookkeepingPWA
     ```
 
 2. **Install Dependencies**:
