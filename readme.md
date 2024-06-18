@@ -1,6 +1,6 @@
 # Simplest Bookkeeping PWA
 
-![App Icon](./static/icons/web-icon.svg)
+![App Icon](./static/icons/icon_144.png)
 
 ## Introduction
 
