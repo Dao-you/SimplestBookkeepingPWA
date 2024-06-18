@@ -30,9 +30,9 @@
 	<script type="text/javascript">
 
 		if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('./sw.js')
-			.then(reg => console.log('SW registered!'))
-			.catch(err => console.log('Error!', err));
+			navigator.serviceWorker.register('./sw.js')
+				.then(reg => console.log('SW registered!'))
+				.catch(err => console.log('Error!', err));
 		}
 
 	</script>
@@ -48,14 +48,7 @@
 		<form method="post" action="./">
 
             <input type="hidden" name="action" value="new">
-			<!-- 輸入框 -->
-			<input 
-				type="text" 
-				name="content_of_textbox" 
-				autocomplete="off" 
-				enterkeyhint="send" 
-				placeholder="50/bubble tea"
-			>
+			<input type="text" name="content_of_textbox" autocomplete="off" enterkeyhint="send" placeholder="50/bubble tea">
 			
 			<!-- 收入或支出選擇 -->
 			<br>
@@ -78,131 +71,185 @@
 				</div>
 			</div>
 
-
-
-			<!-- 分類按鈕 -->
 			<br>
-				<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory">
-					{% for item in expenseCategory %}
-					<div class="radio-item">
-						<input type="radio" name="category" id="{{ item }}" value="{{ item }}" checked/>
-						<label>
-							<i class="disc"></i>
-							<i class="active"></i>
-						</label>
-						<span>{{ item }}</span>
-					</div>
-					{% endfor %}
-					<div class="radio-item">
-						<input type="radio" name="category" id="Others" value="Others"/>
-						<label>
-							<i class="disc"></i>
-							<i class="active"></i>
-						</label>
-						<span>Others</span>
-					</div>
-				</div>
-
-				<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;">
-					{% for item in incomeCategory %}
-					<div class="radio-item">
-						<input type="radio" name="category" id="{{ item }}" value="{{ item }}" checked/>
-						<label>
-							<i class="disc"></i>
-							<i class="active"></i>
-						</label>
-						<span>{{ item }}</span>
-					</div>
-					{% endfor %}
-					<div class="radio-item">
-						<input type="radio" name="category" id="" value="Others"/>
-						<label>
-							<i class="disc"></i>
-							<i class="active"></i>
-						</label>
-						<span>Others</span>
-					</div>
-				</div>
+			<div class="radio clearfix" style="margin:0px auto;" id="expenseCategory"></div>
+			<div class="radio clearfix" style="margin:0px auto;" id="incomeCategory" style="display: none;"></div>
 
 			<br>
-
-			<!-- 送出按鈕 -->
 			<input type="submit" value="Send">
 			<br><br>
 			<a href="/edit_categories">Edit categories option</a> <div class="a">．</div>
 			<a href="/load_CSV">Load CSV log</a> <div class="a">．</div>
 			<a href="https://github.com/Dao-you/SImplestBookkeepingPWA">GitHub</a>
-
 		</form>
 	</div>
 
 	<script>
+		function getCookie(name) {
+			let cookieArr = document.cookie.split(";");
+			for(let i = 0; i < cookieArr.length; i++) {
+				let cookiePair = cookieArr[i].split("=");
+				if(name == cookiePair[0].trim()) {
+					return decodeURIComponent(cookiePair[1]);
+				}
+			}
+			return null;
+		}
 
-	window.onload = function() {
-		var input = document.getElementsByName("content_of_textbox")[0];
-		input.focus();
-		input.select();
-		input.click();
-	};
+		function setCookie(name, value, days) {
+			let expires = "";
+			if (days) {
+				let date = new Date();
+				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				expires = "; expires=" + date.toUTCString();
+			}
+			document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+		}
 
-	document.addEventListener('DOMContentLoaded', function () {
-		const connectionDiv = document.querySelector('.connection');
-		const imgElement = connectionDiv.querySelector('img');
-		const pElement = connectionDiv.querySelector('p');
+		function updateCategories(categories) {
+			const expenseCategoryDiv = document.getElementById('expenseCategory');
+			const incomeCategoryDiv = document.getElementById('incomeCategory');
 
-		function connect() {
-			fetch('./test')
-				.then(response => {
-					if (response.ok) {
-						connectionDiv.classList.remove('loading');
-						connectionDiv.classList.add('success');
-						imgElement.src = "/static/svgs/success.svg";
-						pElement.textContent = "Server connection successful";
-						setTimeout(() => {
-							connectionDiv.classList.add('fade-out');
-						}, 2000); // Fade out after 2 seconds
-					} else {
+			expenseCategoryDiv.innerHTML = '';
+			incomeCategoryDiv.innerHTML = '';
+
+			categories.expense.forEach(item => {
+				expenseCategoryDiv.innerHTML += `
+					<div class="radio-item">
+						<input type="radio" name="category" id="${item}" value="${item}"/>
+						<label>
+							<i class="disc"></i>
+							<i class="active"></i>
+						</label>
+						<span>${item}</span>
+					</div>
+				`;
+			});
+
+			expenseCategoryDiv.innerHTML += `
+				<div class="radio-item">
+					<input type="radio" name="category" id="Others" value="Others"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>Others</span>
+				</div>
+			`;
+
+			categories.income.forEach(item => {
+				incomeCategoryDiv.innerHTML += `
+					<div class="radio-item">
+						<input type="radio" name="category" id="${item}" value="${item}"/>
+						<label>
+							<i class="disc"></i>
+							<i class="active"></i>
+						</label>
+						<span>${item}</span>
+					</div>
+				`;
+			});
+
+			incomeCategoryDiv.innerHTML += `
+				<div class="radio-item">
+					<input type="radio" name="category" id="Others" value="Others"/>
+					<label>
+						<i class="disc"></i>
+						<i class="active"></i>
+					</label>
+					<span>Others</span>
+				</div>
+			`;
+
+			// 根據當前選中的大類來顯示或隱藏子選項，並勾選顯示的第一個子選項
+			const expenseRadio = document.getElementById('expenseRadio');
+			const incomeRadio = document.getElementById('incomeRadio');
+			
+			if (expenseRadio.checked) {
+				expenseCategory.style.display = 'block';
+				incomeCategory.style.display = 'none';
+				const firstExpenseOption = expenseCategoryDiv.querySelector('input[type="radio"]');
+				if (firstExpenseOption) firstExpenseOption.checked = true;
+			} else if (incomeRadio.checked) {
+				expenseCategory.style.display = 'none';
+				incomeCategory.style.display = 'block';
+				const firstIncomeOption = incomeCategoryDiv.querySelector('input[type="radio"]');
+				if (firstIncomeOption) firstIncomeOption.checked = true;
+			}
+		}
+
+		function fetchCategories() {
+			fetch('/get_categories')
+				.then(response => response.json())
+				.then(data => {
+					updateCategories(data);
+					setCookie('categories', JSON.stringify(data), 7);
+				})
+				.catch(error => console.error('Error fetching categories:', error));
+		}
+
+		document.addEventListener('DOMContentLoaded', function () {
+			const connectionDiv = document.querySelector('.connection');
+			const imgElement = connectionDiv.querySelector('img');
+			const pElement = connectionDiv.querySelector('p');
+
+			function connect() {
+				fetch('./test')
+					.then(response => {
+						if (response.ok) {
+							connectionDiv.classList.remove('loading');
+							connectionDiv.classList.add('success');
+							imgElement.src = "/static/svgs/success.svg";
+							pElement.textContent = "Server connection successful";
+							setTimeout(() => {
+								connectionDiv.classList.add('fade-out');
+							}, 2000); // Fade out after 2 seconds
+						} else {
+							connectionDiv.classList.remove('loading');
+							connectionDiv.classList.add('warning');
+							imgElement.src = "/static/svgs/warning.svg";
+							pElement.textContent = "Server connection failed";
+							setTimeout(connect, 3000); // Retry after 3 seconds
+						}
+					})
+					.catch(error => {
 						connectionDiv.classList.remove('loading');
 						connectionDiv.classList.add('warning');
 						imgElement.src = "/static/svgs/warning.svg";
 						pElement.textContent = "Server connection failed";
 						setTimeout(connect, 3000); // Retry after 3 seconds
-					}
-				})
-				.catch(error => {
-					connectionDiv.classList.remove('loading');
-					connectionDiv.classList.add('warning');
-					imgElement.src = "/static/svgs/warning.svg";
-					pElement.textContent = "Server connection failed";
-					setTimeout(connect, 3000); // Retry after 3 seconds
-				});
-		}
+					});
+			}
 
-		connect();
-	});
+			connect();
 
-	document.addEventListener('DOMContentLoaded', function () {
-        const expenseRadio = document.getElementById('expenseRadio');
-        const incomeRadio = document.getElementById('incomeRadio');
-        const expenseCategory = document.getElementById('expenseCategory');
-        const incomeCategory = document.getElementById('incomeCategory');
+			const categoriesFromCookie = getCookie('categories');
+			if (categoriesFromCookie) {
+				const categories = JSON.parse(categoriesFromCookie);
+				updateCategories(categories);
+			}
 
-        // 預設顯示支出選項
-        expenseCategory.style.display = 'block';
-        incomeCategory.style.display = 'none';
+			fetchCategories();
 
-        // 監聽收入與支出選項的變化
-        expenseRadio.addEventListener('change', function () {
-            expenseCategory.style.display = 'block';
-            incomeCategory.style.display = 'none';
-        });
+			const expenseRadio = document.getElementById('expenseRadio');
+			const incomeRadio = document.getElementById('incomeRadio');
+			const expenseCategory = document.getElementById('expenseCategory');
+			const incomeCategory = document.getElementById('incomeCategory');
 
-        incomeRadio.addEventListener('change', function () {
-            incomeCategory.style.display = 'block';
-            expenseCategory.style.display = 'none';
-        });
-    });
+			expenseRadio.addEventListener('change', function () {
+				expenseCategory.style.display = 'block';
+				incomeCategory.style.display = 'none';
+				const firstExpenseOption = expenseCategory.querySelector('input[type="radio"]');
+				if (firstExpenseOption) firstExpenseOption.checked = true;
+			});
 
+			incomeRadio.addEventListener('change', function () {
+				expenseCategory.style.display = 'none';
+				incomeCategory.style.display = 'block';
+				const firstIncomeOption = incomeCategory.querySelector('input[type="radio"]');
+				if (firstIncomeOption) firstIncomeOption.checked = true;
+			});
+		});
 	</script>
 
 </body>

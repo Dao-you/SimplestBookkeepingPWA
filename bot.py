@@ -26,6 +26,10 @@ def home():
         file_manager.init_categories()
         categories = file_manager.read_categories()
         return render_template('home.html', expenseCategory=categories['expense'], incomeCategory=categories['income'])
+    
+@app.route('/get_categories')
+def get_categories():
+    return send_file("categories.json")
 
 def handle_new_transaction():
     user_input = request.form['content_of_textbox']
@@ -243,4 +247,4 @@ if __name__ == '__main__':
         app.run(host='0.0.0.0', debug=False, port=5000, ssl_context=SSH_KEY)
     else:
         print("Failed to load SSH keys, run it on HTTP without some PWA eatures!")
-        app.run(host='0.0.0.0', debug=False, port=5000)
+        app.run(host='0.0.0.0', debug=True, port=5000)
