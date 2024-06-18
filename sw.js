@@ -1,4 +1,4 @@
-const cacheVersion = 'v1';
+const cacheVersion = 'v2.0';
 const filesToCache = [
   '/manifest.json',
   '/static/icons/icon_512.png',
@@ -9,8 +9,13 @@ const filesToCache = [
   '/static/svgs/loading.svg', 
   '/static/svgs/success.svg', 
   '/static/svgs/warning.svg', 
-  '/static/style.css',
-  '/'
+  '/static/css/style.css',
+  '/static/css/connection.css',
+  '/static/css/form.css',
+  '/static/css/table.css',
+  '/',
+  '/chart',
+  'load_css'
 ];
 
 self.addEventListener('install', event => {
