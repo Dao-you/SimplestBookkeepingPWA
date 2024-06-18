@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, send_from_directory, send_fil
 from datetime import datetime
 import os
 import uuid
+import json
 from file_manager import FileManager
 from CSV_manager import CSVManager
 
@@ -225,4 +226,21 @@ def connection_test():
     return 'OK'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=5000)
+
+    try:
+        with open("SSHconfig.json", 'r') as f:
+            keys = json.load(f)
+            SSH_KEY = ( keys["SSL_CERT_PATH"], keys["SSL_KEY_PATH"] )
+            with open(keys["SSL_CERT_PATH"], 'r') as f:
+                pass
+            with open(keys["SSL_KEY_PATH"] , 'r') as f:
+                pass
+
+    except:
+        SSH_KEY = ( "", "" )
+
+    if SSH_KEY[0] != "" and SSH_KEY[1] != "":
+        app.run(host='0.0.0.0', debug=False, port=5000, ssl_context=SSH_KEY)
+    else:
+        print("Failed to load SSH keys, run it on HTTP without some PWA eatures!")
+        app.run(host='0.0.0.0', debug=False, port=5000)
