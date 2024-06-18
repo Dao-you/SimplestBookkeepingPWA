@@ -228,7 +228,7 @@ def connection_test():
 if __name__ == '__main__':
 
     try:
-        with open("SSHconfig.json", 'r') as f:
+        with open("SSLconfig.json", 'r') as f:
             keys = json.load(f)
             SSH_KEY = ( keys["SSL_CERT_PATH"], keys["SSL_KEY_PATH"] )
             with open(keys["SSL_CERT_PATH"], 'r') as f:
