@@ -32,7 +32,7 @@
       <div class="view_cards" id="categories_sum">
         <a href="/chart">
           <div id="chart" class="view_tinycard">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" style="line-height: 0.675;">
               pie_chart
             </span>
           </div>
@@ -44,7 +44,7 @@
 
   <div class="buttons">
     <button onclick="window.location.href = './get_CSV'">Download logs</button>
-    <button onclick="window.location.href = '../'">Turn Back</button>
+    <button onclick="window.location.href = '/'">Turn Back</button>
   </div>
 
   <table align="center" id="logTable">
@@ -60,6 +60,12 @@
       <!-- Data will be populated here by JavaScript -->
     </tbody>
   </table>
+  <br>
+
+  <div class="buttons">
+    <button onclick="window.location.href = './get_CSV'">Download logs</button>
+    <button onclick="window.location.href = '/'">Turn Back</button>
+  </div>
 
   <button onclick="clearLogs()" class="danger" style="margin-top: 20px;">Clear</button>
 

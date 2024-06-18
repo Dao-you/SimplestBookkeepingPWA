@@ -32,6 +32,17 @@ input[type=number] {
     margin-bottom: 10px;
 }
 
+input[type=file] {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: 5px 0px;
+}
+
 input[type=submit] {
     background-color: #007BFF;
     color: white;

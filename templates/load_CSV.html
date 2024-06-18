@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload CSV</title>
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/form.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/connection.css') }}">
+  <link rel="icon" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+  <link rel="icon" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+  <link rel="icon" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{url_for('static', filename='icons/icon_144.png')}}" type="image/png">
+  <link rel="apple-touch-icon" sizes="192x192" href="{{url_for('static', filename='icons/icon_192.png')}}" type="image/png">
+  <link rel="apple-touch-icon" sizes="512x512" href="{{url_for('static', filename='icons/icon_512.png')}}" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src="https://kit.fontawesome.com/4c8fc690ad.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="view">
+    <h1>Upload CSV</h1>
+  </div>
+
+  <div class="form_main">
+    <form method="post" action="/load_CSV" enctype="multipart/form-data">
+      
+      <div class="file_input">
+        <input type="file" name="file" required>
+      </div>
+      
+      <br>
+      <div class="radio clearfix" style="margin:0px auto;">
+        <div class="radio-item">
+          <input type="radio" name="action" id="append" value="append" checked/>
+          <label>
+            <i class="disc"></i>
+            <i class="active"></i>
+          </label>
+          <span>Append</span>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="action" id="new" value="new"/>
+          <label>
+            <i class="disc"></i>
+            <i class="active"></i>
+          </label>
+          <span>Create New</span>
+        </div>
+      </div>
+      <br>
+
+      <input type="submit" value="Upload">
+      <br><br>
+    </form>
+
+    <button onclick="window.location.href = '/'" class="cancel">Cancel</button>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var input = document.getElementsByName("file")[0];
+      input.focus();
+      input.click();
+    });
+  </script>
+
+</body>
+</html>

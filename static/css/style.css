@@ -30,6 +30,11 @@ a {
     color: gray;
 }
 
+.a {
+    color: gray;
+    display: inline;
+}
+
 button {
     background-color: #007BFF;
     color: white;
@@ -162,7 +167,7 @@ button:hover {
 
 @media (orientation: portrait) {
     .info_title {
-        height: 39vh;
+        min-height: 39vh;
     }
     .action_cards {
         display: flex;

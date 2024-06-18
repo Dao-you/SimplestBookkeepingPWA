@@ -3,7 +3,7 @@ from datetime import datetime
 import json
 import os
 import uuid
-from CSVconverter import CSVconverter
+from CSVconverter import CSVconverter, JSONconverter
 
 app = Flask(__name__)
 
@@ -23,6 +23,27 @@ def init_log():
                 "log": []
             }
             json.dump(data, f)
+
+def init_categories():
+    if not os.path.isfile(LOG_FILE) or os.stat(LOG_FILE).st_size == 0:
+        with open(CATEGORIES_FILE, 'w') as f:
+            categories =   {
+                "expense": [
+                    "Dining",
+                    "Household",
+                    "Transportation",
+                    "Entertainment",
+                    "Healthcare",
+                ],
+                "income": [
+                    "Salary", 
+                    "Freelance", 
+                    "Investment", 
+                    "Rental", 
+                    "Gifts"
+                ]
+            }
+            json.dump(categories, f)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -157,17 +178,14 @@ def home():
 
     else: # GET
         
-        try:
-            with open(CATEGORIES_FILE, 'r') as f:
-                data = json.load(f)
-                expense = data['expense']
-                income  = data['income']
-                del data
-        except:
-            expense = ['Dining', 'Household', 'Transportation', 'Entertainment', 'Healthcare']
-            income  = ['Salary', 'Freelance', 'Investment', 'Rental', 'Gifts']
+        init_categories()
+        with open(CATEGORIES_FILE, 'r') as f:
+            data = json.load(f)
+            expense = data['expense']
+            income  = data['income']
+            del data
 
-        return render_template(
+        return render_template (
             template_name_or_list = 'home.html', 
             expenseCategory = expense, 
             incomeCategory  = income
@@ -176,22 +194,21 @@ def home():
 @app.route('/edit_categories', methods=['GET', 'POST'])
 def edit_categories():
     # Ensure the categories file exists
-    if not os.path.isfile(CATEGORIES_FILE):
-        categories = {
-            "expense": ["Dining", "Household", "Transportation", "Entertainment", "Healthcare"],
-            "income": ["Salary", "Freelance", "Investment", "Rental", "Gifts"]
-        }
-        with open(CATEGORIES_FILE, 'w') as f:
-            json.dump(categories, f)
-    
+    init_categories()
     if request.method == 'POST':
         try:
             new_categories = request.form.to_dict(flat=False)
             new_categories = {k: v for k, v in new_categories.items() if v}
+            if 'expense' not in new_categories:
+                new_categories['expense'] = ["Dining", "Household", "Transportation", "Entertainment", "Healthcare"]
+            if 'income'  not in new_categories:
+                new_categories['income']  = ["Salary", "Freelance", "Investment", "Rental", "Gifts"]
+
             with open(CATEGORIES_FILE, 'w') as f:
                 json.dump(new_categories, f)
             return redirect(url_for('home'))
         except Exception as e:
+            print(str(e))
             return render_template('edit_categories.html', categories={}, error=str(e))
 
     else:
@@ -209,6 +226,36 @@ def get_log():
 def get_CSV():
     CSV = CSVconverter()
     return send_file(CSV)
+
+@app.route('/load_CSV', methods=['GET', 'POST'])
+def load_CSV():
+    if request.method == "GET":
+        return render_template("load_CSV.html")
+    
+    elif request.method == 'POST':
+        file = request.files['file']
+        action = request.form['action']
+        if not file:
+            return "No file uploaded.", 400
+        
+        # Save the uploaded CSV file
+        csv_file_path = f"uploaded_{str(uuid.uuid4())}.csv"
+        file.save(csv_file_path)
+        
+        json_file_path = 'log.json'
+        if action == 'append' and os.path.exists(json_file_path):
+            with open(json_file_path, 'r') as f:
+                data = json.load(f)
+        else:
+            data = None
+
+        # Convert CSV to JSON
+        JSONconverter(csv_file_path, json_file_path, data)
+
+        os.remove(csv_file_path)
+
+        return render_template("result.html", info="File upload successed.")
+
 
 @app.route('/clear', methods=['GET'])
 def clear():
@@ -264,7 +311,4 @@ def connection_test():
     return 'OK'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=5000,
-            # ssl_context=('/etc/letsencrypt/live/daoyou.duckdns.org/fullchain.pem',
-            #              '/etc/letsencrypt/live/daoyou.duckdns.org/privkey.pem'   )
-            )
+    app.run(host='0.0.0.0', debug=True, port=5000)
