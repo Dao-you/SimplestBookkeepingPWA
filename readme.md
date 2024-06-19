@@ -1,77 +1,74 @@
-# Simplest Bookkeeping PWA
+# SimplestBookkeepingPWA
 
-![App Icon](./static/icons/icon_144.png)
+SimplestBookkeepingPWA is a minimalist, cloud-based bookkeeping application designed to simplify the task of financial record-keeping. This project features a user-friendly interface, cloud storage, and Progressive Web App (PWA) capabilities, making it accessible from any device. The application supports responsive design, one-handed use, and includes import/export functionality for easy data management.
 
-## Introduction
+## Key Features
 
-Simplest Bookkeeping PWA is a progressive web application designed to help you manage your personal finances efficiently. This application allows you to track your income and expenses with ease, providing a user-friendly interface and essential features for everyday bookkeeping.
+1. **Super Simple Interface**:
+   - Clean and intuitive interface designed to make bookkeeping easy and less cumbersome.
 
-## Features
+2. **Cloud-Based Storage**:
+   - All user data is stored securely on the server, allowing access from any device with an internet connection.
 
-- **Transaction Recording**: Log various income and expense entries.
-- **CSV Export**: Export your transaction records to a CSV file for further analysis.
-- **Category Management**: Use default categories or create custom ones to organize your transactions.
+3. **Progressive Web App (PWA) Design**:
+   - Accessible via a web browser or installable as a standalone app on devices.
 
-## Benefits of PWA
+4. **Responsive Web Design (RWD)**:
+   - Automatically adjusts layout to suit any screen size, ensuring optimal usability on all devices.
 
-- **Offline Availability**: Continue using the app even when offline. Data syncs when the connection is restored.
-- **Easy Installation**: Install directly from your browser without needing an app store.
-- **Automatic Updates**: Always use the latest version without manual updates.
-- **Improved Performance**: Enhanced loading speeds through caching technology for a better user experience.
+5. **One-Handed Use**:
+   - Interface optimized for single-handed operation on mobile devices.
 
-## Responsive Web Design Techniques
+6. **Import and Export Capabilities**:
+   - Users can import and export financial data in spreadsheet format for easy data management and backup.
 
-- **Flexible Layouts**: Utilizes CSS flexbox and grid for adaptive layouts.
-- **Media Queries**: Adjusts styles based on device sizes for optimal viewing.
-- **Relative Units**: Employs percentages, em, and rem for scalable designs.
-- **Responsive Images**: Uses `srcset` to load images suitable for different resolutions.
+7. **Dark Mode**:
+   - Supports dark mode for comfortable use at night.
 
-## Installation and Running the Project
+## Installation
 
-1. **Clone the Repository**:
-    ```sh
-    git clone https://github.com/Dao-you/SimplestBookkeepingPWA.git
-    cd SimplestBookkeepingPWA
-    ```
+To install and run the SimplestBookkeepingPWA, follow these steps:
 
-2. **Install Dependencies**:
-    ```sh
-    pip install -r requirements.txt
-    ```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Dao-you/SImplestBookkeepingPWA.git
+   cd SimplestBookkeepingPWA
+   ```
 
-3. **Obtain an SSL Certificate**:
-   You need a secure certificate to run your PWA on HTTPS. You can obtain a free SSL certificate from [Let's Encrypt](https://letsencrypt.org/).
+2. Install the necessary dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-4. **Place Certificate Files**:
-   Copy your SSL certificate files (e.g., `fullchain.pem` and `privkey.pem`) to a directory such as `certs/`.
+3. Configure HTTPS:
+   - PWA functionalities require HTTPS. To add your SSL certificate, update the `SSLconfig.json` file with your certificate paths:
+     ```json
+     {
+       "certfile": "path/to/your/cert.pem",
+       "keyfile": "path/to/your/key.pem"
+     }
+     ```
+   - The program will attempt to read the SSL configuration from `SSLconfig.json`. If it fails, it will run using unencrypted HTTP, but PWA features will be unavailable.
+   - For more information on obtaining SSL certificates, you can refer to these guides:
+     - [Let's Encrypt](https://letsencrypt.org/getting-started/)
+     - [SSL for Free](https://www.sslforfree.com/)
 
-5. **Create a Configuration File**:
-   Create a file named `config.py` in your project directory with the following content:
-    ```python
-    SSL_CERT_PATH = 'certs/fullchain.pem'
-    SSL_KEY_PATH = 'certs/privkey.pem'
-    ```
+4. Run the application:
+   ```
+   python bot.py
+   ```
 
-6. **Run the Development Server**:
-    ```sh
-    python bot.py
-    ```
+5. Network Settings:
+   - Ensure proper network settings to allow access from other devices. Refer to these guides for more details:
+     - [Port Forwarding](https://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/)
+     - [Setting Up a Static IP Address]()
 
-7. **Access the Application**:
-    Open your browser and navigate to `https://localhost:5000`.
+## User Guide
 
-## Usage
+### Frontend
 
-1. **Record Transactions**: Navigate to the transaction page and input your income or expenses.
-2. **Export Data**: Go to the settings and select the option to export your transaction data to a CSV file.
-3. **Manage Categories**: Add, edit, or delete categories to better organize your finances.
+- The home page allows users to input transactions in the format \<price>/\<description>.
+- Custom transaction type options can be added via the provided links in the bottom of UI.
+- Submitting an empty for displays the transaction records.
 
-For more detailed information, please visit the [GitHub repository](https://github.com/Dao-you/SImplestBookkeepingPWA).
-
-## Contributing
-
-Feel free to fork this repository, submit issues, and create pull requests. Your contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License.
+For more information and detailed documentation, visit the [GitHub repository](https://github.com/Dao-you/SimplestBookkeepingPWA).
