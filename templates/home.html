@@ -200,7 +200,7 @@
 							connectionDiv.classList.remove('loading');
 							connectionDiv.classList.add('success');
 							imgElement.src = "/static/svgs/success.svg";
-							pElement.textContent = "Server connection successful";
+							pElement.textContent = "Server connecte";
 							setTimeout(() => {
 								connectionDiv.classList.add('fade-out');
 							}, 2000); // Fade out after 2 seconds
@@ -208,7 +208,7 @@
 							connectionDiv.classList.remove('loading');
 							connectionDiv.classList.add('warning');
 							imgElement.src = "/static/svgs/warning.svg";
-							pElement.textContent = "Server connection failed";
+							pElement.textContent = "Connection failed";
 							setTimeout(connect, 3000); // Retry after 3 seconds
 						}
 					})
@@ -216,7 +216,7 @@
 						connectionDiv.classList.remove('loading');
 						connectionDiv.classList.add('warning');
 						imgElement.src = "/static/svgs/warning.svg";
-						pElement.textContent = "Server connection failed";
+						pElement.textContent = "Connection failed";
 						setTimeout(connect, 3000); // Retry after 3 seconds
 					});
 			}
