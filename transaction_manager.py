@@ -12,7 +12,10 @@ class TransactionManager:
         try:
             amount, desc = user_input.split('/', 1)
             amount = int(amount)
-            desc = str(desc).trim()
+            # `trim` is not a valid Python string method. Using `strip` removes
+            # leading and trailing whitespace from the description so that
+            # accidental spaces don't get persisted into the log.
+            desc = str(desc).strip()
             dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             uuid_str = str(uuid.uuid4())
             result = {"uuid": uuid_str, "amount": amount, "description": desc, "datetime": dt, 'category': category, 'type': transaction_type}
