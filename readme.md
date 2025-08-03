@@ -66,7 +66,7 @@ To install and run the SimplestBookkeepingPWA, follow these steps:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/Dao-you/SImplestBookkeepingPWA.git
+   git clone https://github.com/Dao-you/SimplestBookkeepingPWA.git
    cd SimplestBookkeepingPWA
    ```
 
@@ -138,7 +138,7 @@ graph TD;
     H --> M[SVG/PNG Files]
 ```
 
-- Bot.py: Routes defination and processition data from frontend
+- Bot.py: Defines routes and processes data from the frontend.
 
 - File Manager: Manages file operations for storing and retrieving data.
 
