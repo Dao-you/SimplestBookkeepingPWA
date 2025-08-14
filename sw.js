@@ -13,6 +13,7 @@ const filesToCache = [
   '/static/css/connection.css',
   '/static/css/form.css',
   '/static/css/table.css',
+  '/static/css/cards.css',
   '/',
   '/chart',
   '/load_CSV'

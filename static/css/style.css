@@ -2,6 +2,10 @@ body {
     text-align: center;
 }
 
+body.has-action-bar {
+    margin-bottom: 80px;
+}
+
 .view {
     display: flex;
     flex-direction: column;
@@ -165,6 +169,19 @@ button:hover {
   'opsz' 0;
 }
 
+.action_bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #ffffff;
+}
+
 @media (orientation: portrait) {
     .info_title {
         min-height: 39vh;
@@ -203,5 +220,8 @@ button:hover {
     }
     button:hover {
         box-shadow: 0 5px 20px 0 rgba(255, 255, 255, 0.5);
+    }
+    .action_bar {
+        background-color: #1a1a1a;
     }
 }
